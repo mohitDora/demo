@@ -38,6 +38,10 @@ app.post("/inventory-check", (req, res) => {
 
   const status = quantity <= product.quantity ? "Available" : "OutOfStock";
 
+  if (status === "OutOfStock") {
+    return res.status(400).json({ error: "Out of stock" });
+  }
+
   res.json({
     productId,
     requested: quantity,
